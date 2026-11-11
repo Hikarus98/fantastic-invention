@@ -1,86 +1,86 @@
 # ARIA — Local AI Voice Assistant
 
-> A personal, local-first AI voice assistant project built with Python, Ollama, and Faster-Whisper.
+**ARIA** is a personal, local-first AI assistant being built with Python, Ollama, and Faster-Whisper. The project is actively under development; this repository contains its initial runnable foundation, not a finished voice-controlled desktop product.
 
-**Status: In development** — ARIA is an ongoing personal project. Features and reliability are actively being improved.
+## What works in this repository today
 
-## Overview
+- Text chat with a locally running Ollama model
+- Ollama connection check
+- Faster-Whisper transcription helper for audio files
+- Environment-based settings
+- Python package, Windows setup/launch scripts, and basic tests
 
-ARIA is being developed to understand spoken commands and assist with everyday desktop workflows while keeping its language-model inference local. The project combines speech recognition, a local LLM, intent handling, and computer automation.
+## Planned / in progress
 
-## Planned / In-progress capabilities
+- Telugu and English microphone interaction
+- Continuous listening and silence detection
+- Intent routing and safe Windows desktop automation
+- Action verification, wake word, and desktop UI
 
-- 🎙️ Speech input using Faster-Whisper
-- 🌐 Telugu and English speech support
-- 🧠 Local language-model responses through Ollama
-- 🖥️ Desktop and application automation (in progress)
-- 🔀 Voice → transcription → intent → action → verification workflow (planned)
-- 🧩 Modular architecture for adding tools and capabilities
+**Important:** The current CLI is text-based. Speech transcription is a helper, and desktop automation is not implemented yet.
 
-> This list describes the project's current direction; it does not imply every feature is complete or reliable yet.
-
-## Architecture
+## Architecture direction
 
 ```text
-Microphone
-   ↓
-Speech recognition (Faster-Whisper)
-   ↓
-Transcription
-   ↓
-Intent / command handling
-   ↓
-Local LLM (Ollama) or action router
-   ↓
-Response / desktop action
-   ↓
+Microphone / typed input
+        ↓
+Speech-to-text (Faster-Whisper)
+        ↓
+Intent and command router
+        ↓
+Ollama local model OR approved action
+        ↓
+Response / action result
+        ↓
 Verification and feedback
 ```
 
-## Technology stack
+## Stack
 
-| Component | Technology |
+| Area | Technology |
 |---|---|
-| Language | Python |
-| Local LLM runtime | Ollama |
-| Model used during development | `llama3.2:latest` |
+| Language | Python 3.11+ |
+| Local inference | Ollama |
+| Development model | `llama3.2:latest` |
 | Speech recognition | Faster-Whisper |
-| Operating system | Windows (development) |
+| Development OS | Windows |
 
-## Getting started
+## Quick start (Windows)
 
-ARIA is still under active development, and setup instructions may change as the codebase is organized.
+1. Install Python 3.11+ and [Ollama](https://ollama.com/).
+2. Pull the model: `ollama pull llama3.2`
+3. Clone this repository and run `Setup-ARIA.bat`.
+4. Start Ollama, then run `RunARIA.bat --check`.
+5. Launch `RunARIA.bat` for text chat.
 
-1. Install Python.
-2. Install [Ollama](https://ollama.com/) and pull the development model:
-   ```powershell
-   ollama pull llama3.2
-   ```
-3. Install Faster-Whisper in your Python environment:
-   ```powershell
-   pip install faster-whisper
-   ```
-4. Configure and run the project using the entry point and instructions in the source code.
+Manual setup and troubleshooting: [Development guide](docs/DEVELOPMENT.md).
 
-**Note:** A complete, tested one-command installation is not available yet.
+## CLI
 
-## Roadmap
+```powershell
+aria --check
+aria
+pytest
+```
 
-- [ ] Stabilize continuous listening and Telugu/English transcription
-- [ ] Improve intent detection and command routing
-- [ ] Add safer, more reliable desktop action execution
-- [ ] Verify actions and report failures clearly
-- [ ] Add configuration and setup documentation
-- [ ] Publish a demonstration
+Type `exit` to close the chat.
 
-## Project status
+## Project documents
 
-ARIA is a personal learning and development project. It is not yet a finished product or a production-ready assistant.
+- [Roadmap](docs/ROADMAP.md)
+- [Development guide](docs/DEVELOPMENT.md)
+- [Contributing](CONTRIBUTING.md)
+
+## Safety
+
+ARIA will use a controlled action registry rather than executing arbitrary model-generated shell commands. Destructive or sensitive actions should require confirmation. Do not commit secrets, private audio, or model weights.
+
+## Status
+
+Personal project / learning build — **in development**, not production-ready.
 
 ## Author
 
-**M Sai Rishith** — [GitHub: Hikarus98](https://github.com/Hikarus98)
+**M Sai Rishith** · [@Hikarus98](https://github.com/Hikarus98)
 
----
-
-*Built as an ongoing exploration of local AI, speech interfaces, and desktop automation.*
+Licensed under the [MIT License](LICENSE).
