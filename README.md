@@ -10,6 +10,7 @@
 - Single-utterance microphone capture with silence timeout
 - CLI voice modes (`/voice`, `/voice-te`, `/voice-en`) feeding the safe command router
 - Safe named action registry and basic process-presence verification
+- Explicit browser search and URL opening commands
 - Environment-based settings
 - Python package, Windows setup/launch scripts, and basic tests
 
@@ -65,7 +66,7 @@ aria
 pytest
 ```
 
-Use `/voice` to record one utterance (auto language), `/voice-te` for Telugu, or `/voice-en` for English. You can say `open Firefox` or another allowlisted app. Typed commands: `/open Firefox`, `/open Notepad`, `/open Calculator`, `/open Explorer`. Type `/help` for help. Type `exit` to close the chat.
+Use `/voice` to record one utterance (auto language), `/voice-te` for Telugu, or `/voice-en` for English. You can say `open Firefox` or another allowlisted app. Typed commands: `/open Firefox`, `/open Notepad`, `/open Calculator`, `/open Explorer`, `/search for AI news`, `/go to example.com`. Type `/help` for help. Type `exit` to close the chat.
 
 ## Project documents
 
@@ -73,6 +74,7 @@ Use `/voice` to record one utterance (auto language), `/voice-te` for Telugu, or
 - [Computer control prototype](docs/COMPUTER_CONTROL.md)
 - [Voice input prototype](docs/VOICE_INPUT.md)
 - [Action verification](docs/ACTION_VERIFICATION.md)
+- [Browser actions](docs/BROWSER_ACTIONS.md)
 - [Development guide](docs/DEVELOPMENT.md)
 - [Contributing](CONTRIBUTING.md)
 
