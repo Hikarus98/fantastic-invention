@@ -6,16 +6,40 @@ cd /d "%~dp0"
 echo ============================================
 echo       ARIA UPDATE + DIAGNOSTICS
 echo ============================================
-echo This updates ARIA code only. It does not automatically
-echo add new Windows actions or repair the command router.
-echo Existing AREON data is not deleted.
 echo.
 
+REM Bootstrap when this BAT was downloaded into Downloads/Desktop.
 if not exist ".git" (
-  echo ERROR: Git repository not found in "%CD%".
-  echo Clone https://github.com/Hikarus98/fantastic-invention first.
-  pause
-  exit /b 1
+  where git >nul 2>&1
+  if errorlevel 1 (
+    echo ERROR: Git is not installed or not on PATH.
+    echo Install Git for Windows, then run this file again.
+    pause
+    exit /b 1
+  )
+  set "ARIA_HOME=%USERPROFILE%\ARIA"
+  if exist "%ARIA_HOME%\.git" (
+    echo Found existing ARIA repository at "%ARIA_HOME%".
+  ) else (
+    if exist "%ARIA_HOME%" (
+      echo ERROR: "%ARIA_HOME%" exists but is not an ARIA Git repository.
+      echo Rename that folder or choose another location before continuing.
+      pause
+      exit /b 1
+    )
+    echo This BAT is outside a Git repository.
+    echo Cloning ARIA into "%ARIA_HOME%"...
+    git clone https://github.com/Hikarus98/fantastic-invention "%ARIA_HOME%"
+    if errorlevel 1 (
+      echo ERROR: Clone failed. Check internet and GitHub access.
+      pause
+      exit /b 1
+    )
+  )
+  echo.
+  echo Running updater from the cloned ARIA folder...
+  call "%ARIA_HOME%\Update-ARIA.bat"
+  exit /b %ERRORLEVEL%
 )
 
 where git >nul 2>&1
@@ -74,7 +98,7 @@ if exist ".venv\Scripts\aria.exe" (
 set "APP_EXIT=%ERRORLEVEL%"
 echo.
 echo ARIA process exited with code %APP_EXIT%.
-echo Note: updater cannot fix missing/unimplemented PC actions by itself.
+echo Existing AREON folders/data are not migrated or deleted by this script.
 pause
 exit /b %APP_EXIT%
 
