@@ -14,6 +14,7 @@
 - Conversational browser phrases (`find`, `look up`, `search`, `visit`, `open a new tab`) routed to explicit safe helpers
 - Explicit browser search and URL opening commands
 - Environment-based settings\n- JSON personality/preferences settings applied to Ollama chat\n- Explicit, safe skill registry for modular capabilities
+- Sequential task runner with execution + verification gates and approval checkpoints
 - Python package, Windows setup/launch scripts, and basic tests
 
 ## Planned / in progress
@@ -73,6 +74,7 @@ Use `/voice` to record one utterance (auto language), `/voice-te` for Telugu, or
 ## Project documents
 
 - [Roadmap](docs/ROADMAP.md)\n- [Personality and settings](docs/SETTINGS.md)\n- [Skills registry](docs/SKILLS.md)
+- [Task execution and verification](docs/TASK_EXECUTION.md)
 - [Computer control prototype](docs/COMPUTER_CONTROL.md)
 - [Voice input prototype](docs/VOICE_INPUT.md)
 - [Action verification](docs/ACTION_VERIFICATION.md)
