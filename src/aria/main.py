@@ -2,6 +2,8 @@
 import argparse
 from .config import Config
 from .llm import OllamaClient
+from .router import route_command
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="ARIA local AI assistant")
@@ -12,7 +14,9 @@ def main() -> None:
         print("Ollama:", "connected" if client.health() else "not reachable")
         print("Model:", client.config.ollama_model)
         return
+
     print("ARIA | Local AI Assistant (Ctrl+C to exit)")
+    print("Tip: prefix desktop commands with / (example: /open Firefox)")
     if not client.health():
         print("Ollama is not reachable. Start Ollama and run aria --check.")
         return
@@ -21,10 +25,19 @@ def main() -> None:
             prompt = input("\nYou: ").strip()
             if prompt.lower() in {"exit", "quit", "bye"}:
                 break
-            if prompt:
-                print("\nARIA:", client.chat(prompt))
+            if not prompt:
+                continue
+            if prompt.startswith("/"):
+                result = route_command(prompt[1:])
+                print("\nARIA:", result.message)
+                continue
+            print("\nARIA:", client.chat(prompt))
         except (KeyboardInterrupt, EOFError):
             print("\nGoodbye!")
             break
         except Exception as exc:
             print(f"ARIA error: {exc}")
+
+
+if __name__ == "__main__":
+    main()
