@@ -16,10 +16,7 @@ def main() -> None:
         return
 
     print("ARIA | Local AI Assistant (Ctrl+C to exit)")
-    print("Tip: prefix desktop commands with / (example: /open Firefox)")
-    if not client.health():
-        print("Ollama is not reachable. Start Ollama and run aria --check.")
-        return
+    print("Commands: /open Firefox | /voice | /voice-te | /voice-en | /help")
     while True:
         try:
             prompt = input("\nYou: ").strip()
@@ -28,8 +25,23 @@ def main() -> None:
             if not prompt:
                 continue
             if prompt.startswith("/"):
+                command = prompt[1:].strip().lower()
+                if command in {"voice", "voice-te", "voice-en"}:
+                    try:
+                        from .voice import listen_and_route
+                        language = {"voice-te": "te", "voice-en": "en"}.get(command)
+                        heard, action = listen_and_route(language=language)
+                        print("Heard:", heard or "(nothing recognized)")
+                        if action is not None:
+                            print("ARIA:", action.message)
+                    except Exception as exc:
+                        print("Voice error:", exc)
+                    continue
                 result = route_command(prompt[1:])
                 print("\nARIA:", result.message)
+                continue
+            if not client.health():
+                print("Ollama is not reachable. Start Ollama and run aria --check.")
                 continue
             print("\nARIA:", client.chat(prompt))
         except (KeyboardInterrupt, EOFError):
