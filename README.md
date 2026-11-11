@@ -15,6 +15,7 @@
 - Explicit browser search and URL opening commands
 - Environment-based settings\n- JSON personality/preferences settings applied to Ollama chat\n- Explicit, safe skill registry for modular capabilities
 - Sequential task runner with execution + verification gates and approval checkpoints
+- Windows-only download, executable launch, installer approval, and process verification primitives
 - Python package, Windows setup/launch scripts, and basic tests
 
 ## Planned / in progress
@@ -75,6 +76,7 @@ Use `/voice` to record one utterance (auto language), `/voice-te` for Telugu, or
 
 - [Roadmap](docs/ROADMAP.md)\n- [Personality and settings](docs/SETTINGS.md)\n- [Skills registry](docs/SKILLS.md)
 - [Task execution and verification](docs/TASK_EXECUTION.md)
+- [Windows automation](docs/WINDOWS_AUTOMATION.md)
 - [Computer control prototype](docs/COMPUTER_CONTROL.md)
 - [Voice input prototype](docs/VOICE_INPUT.md)
 - [Action verification](docs/ACTION_VERIFICATION.md)
