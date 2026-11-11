@@ -6,8 +6,10 @@ echo ========================================
 echo      ARIA (formerly AREON) UPDATE
 echo ========================================
 echo.
+echo This updater uses the ARIA name; old AREON data is not deleted.
+echo.
 
-echo This updater now uses the ARIA name; old AREON data is not deleted.\necho.\nREM Move to the folder containing this batch file
+REM Move to the folder containing this batch file
 cd /d "%~dp0"
 
 REM Verify this is a Git checkout
@@ -26,7 +28,7 @@ if errorlevel 1 (
     pause
     exit /b 1
 )
-for /f %%A in ('git status --porcelain') do (
+for /f "delims=" %%A in ('git status --porcelain') do (
     echo.
     echo ERROR: Local changes detected. Back them up or commit/stash them before updating.
     pause
