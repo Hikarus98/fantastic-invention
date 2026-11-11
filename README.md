@@ -13,7 +13,7 @@
 - Safe named action registry and basic process-presence verification
 - Conversational browser phrases (`find`, `look up`, `search`, `visit`, `open a new tab`) routed to explicit safe helpers
 - Explicit browser search and URL opening commands
-- Environment-based settings\n- JSON personality/preferences settings applied to Ollama chat
+- Environment-based settings\n- JSON personality/preferences settings applied to Ollama chat\n- Explicit, safe skill registry for modular capabilities
 - Python package, Windows setup/launch scripts, and basic tests
 
 ## Planned / in progress
@@ -72,7 +72,7 @@ Use `/voice` to record one utterance (auto language), `/voice-te` for Telugu, or
 
 ## Project documents
 
-- [Roadmap](docs/ROADMAP.md)\n- [Personality and settings](docs/SETTINGS.md)
+- [Roadmap](docs/ROADMAP.md)\n- [Personality and settings](docs/SETTINGS.md)\n- [Skills registry](docs/SKILLS.md)
 - [Computer control prototype](docs/COMPUTER_CONTROL.md)
 - [Voice input prototype](docs/VOICE_INPUT.md)
 - [Action verification](docs/ACTION_VERIFICATION.md)
