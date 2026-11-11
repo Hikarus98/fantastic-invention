@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from .windows_control import launch_app
+from .actions import execute_action
 
 
 @dataclass(frozen=True)
@@ -40,5 +40,5 @@ def route_command(command: str) -> CommandResult:
 
     # Normalize a few natural-language aliases.
     app = app.removeprefix("the ").removesuffix(" application")
-    result = launch_app(app)
+    result = execute_action("open_application", name=app)
     return CommandResult(True, result.success, result.message)
