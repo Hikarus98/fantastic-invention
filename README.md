@@ -14,10 +14,11 @@
 
 - Telugu and English microphone interaction
 - Continuous listening and silence detection
-- Intent routing and safe Windows desktop automation
+- Telugu and English microphone interaction
+- Continuous listening and silence detection
 - Action verification, wake word, and desktop UI
 
-**Important:** The current CLI is text-based. Speech transcription is a helper, and desktop automation is not implemented yet.
+**Current limitation:** The CLI is text-based. A small, allowlisted Windows app launcher is available through slash commands; it confirms launch requests, not that a window fully opened. Speech transcription is still a helper.
 
 ## Architecture direction
 
@@ -63,11 +64,12 @@ aria
 pytest
 ```
 
-Type `exit` to close the chat.
+Use slash commands for the safe app launcher, for example `/open Firefox`, `/open Notepad`, `/open Calculator`, or `/open Explorer`. Type `help` after the slash to list supported commands. Type `exit` to close the chat.
 
 ## Project documents
 
 - [Roadmap](docs/ROADMAP.md)
+- [Computer control prototype](docs/COMPUTER_CONTROL.md)
 - [Development guide](docs/DEVELOPMENT.md)
 - [Contributing](CONTRIBUTING.md)
 
