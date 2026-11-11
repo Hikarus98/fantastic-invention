@@ -11,13 +11,13 @@ from .router import route_command
 class ARIAWindow:
     def __init__(self, root: tk.Tk):
         self.root=root
-        self.root.title("ARIA | Local AI")
+        self.root.title("ARIA (formerly AREON) | Local AI")
         self.root.geometry("760x620")
         self.root.minsize(560,420)
         self.root.configure(bg="#10151f")
         self.client=OllamaClient(Config())
         self._build()
-        self._append("ARIA", "Hello! I'm ARIA. Ask me something or try: open Firefox, find ChatGPT, visit example.com.")
+        self._append("ARIA", "Hello! I'm ARIA (formerly AREON). Ask me something or try: open Firefox, find ChatGPT, visit example.com.")
 
     def _build(self):
         style=ttk.Style()
