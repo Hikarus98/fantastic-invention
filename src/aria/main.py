@@ -21,7 +21,7 @@ def main() -> None:
         print("Model:", client.config.ollama_model)
         return
 
-    print("ARIA | Local AI Assistant (Ctrl+C to exit)")
+    print("ARIA (formerly AREON) | Local AI Assistant (Ctrl+C to exit)")
     print("Conversation context:", "off" if memory is None else f"local memory ({args.history} messages)")
     print("Try natural commands: open Firefox, find ChatGPT, visit example.com")
     print("Slash commands: /voice | /voice-te | /voice-en | /download URL PATH | /install PATH | /launch EXE | /check-process NAME | /help")
