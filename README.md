@@ -9,13 +9,14 @@
 - Faster-Whisper transcription helper for audio files
 - Single-utterance microphone capture with silence timeout
 - CLI voice modes (`/voice`, `/voice-te`, `/voice-en`) feeding the safe command router
+- Safe named action registry and basic process-presence verification
 - Environment-based settings
 - Python package, Windows setup/launch scripts, and basic tests
 
 ## Planned / in progress
 
 - Wake word and background always-on listening
-- Action verification, wake word, and desktop UI
+- Window-level verification, wake word, and desktop UI
 - Action verification, wake word, and desktop UI
 
 **Current limitation:** Voice is manually triggered for one utterance; there is no wake word or background always-on listening. The app launcher confirms a launch request, not that the window fully opened.
@@ -71,6 +72,7 @@ Use `/voice` to record one utterance (auto language), `/voice-te` for Telugu, or
 - [Roadmap](docs/ROADMAP.md)
 - [Computer control prototype](docs/COMPUTER_CONTROL.md)
 - [Voice input prototype](docs/VOICE_INPUT.md)
+- [Action verification](docs/ACTION_VERIFICATION.md)
 - [Development guide](docs/DEVELOPMENT.md)
 - [Contributing](CONTRIBUTING.md)
 
