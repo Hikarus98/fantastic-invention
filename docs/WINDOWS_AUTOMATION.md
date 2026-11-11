@@ -13,3 +13,14 @@ All helpers return structured `AutomationResult` outcomes. They are Windows-only
 ## Security boundaries
 
 No `shell=True`, no arbitrary command string execution, no silent UAC bypass, no auto-accepting license terms, and no automatic reboot. Use official vendor URLs and user-confirmed installer prompts.
+
+## CLI commands
+
+These explicit commands are wired into ARIA's slash-command handler:
+
+- `/download https://vendor.example/installer.exe C:\\Users\\You\\Downloads\\installer.exe`
+- `/install C:\\Users\\You\\Downloads\\installer.exe` (requires typing `YES` at the prompt)
+- `/launch C:\\Program Files\\Vendor\\App.exe`
+- `/check-process App.exe`
+
+Paths containing spaces should be quoted, for example `/launch "C:\\Program Files\\Vendor\\App.exe"`. They are explicit path-based commands; natural-language planning and official URL discovery are not yet wired into the CLI.
