@@ -6,6 +6,7 @@ word is detected. This keeps model choice/licensing separate from ARIA core.
 from __future__ import annotations
 
 import threading
+import time
 from collections.abc import Callable
 
 import numpy as np
@@ -61,7 +62,7 @@ class WakeWordListener:
                     continue
                 chunk = np.asarray(audio, dtype=np.float32).reshape(-1)
                 if self.detector(chunk):
-                    now = threading time.monotonic()
+                    now = time.monotonic()
                     if now - last_trigger >= self.cooldown_seconds:
                         last_trigger = now
                         stream.stop()
