@@ -1,6 +1,6 @@
-# ARIA — Local AI Voice Assistant
+# ARIA (formerly AREON) — Local AI Voice Assistant
 
-**ARIA** is a personal, local-first AI assistant being built with Python, Ollama, and Faster-Whisper. The project is actively under development; this repository contains its initial runnable foundation, not a finished voice-controlled desktop product.
+**ARIA (formerly AREON)** is a personal, local-first AI assistant being built with Python, Ollama, and Faster-Whisper. The project is actively under development; this repository contains its initial runnable foundation, not a finished voice-controlled desktop product.
 
 ## What works in this repository today
 
