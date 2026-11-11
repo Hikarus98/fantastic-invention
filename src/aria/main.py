@@ -67,9 +67,9 @@ def main() -> None:
                         result = process_running(parts[1])
                     else:
                         result = route_command(prompt[1:])
-                    print("\\nARIA:", result.message)
+                    print("\nARIA:", result.message)
                 except Exception as exc:
-                    print("\\nARIA action error:", exc)
+                    print("\nARIA action error:", exc)
                 continue
 
             action = route_command(prompt)
