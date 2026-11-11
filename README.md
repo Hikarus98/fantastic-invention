@@ -7,18 +7,18 @@
 - Text chat with a locally running Ollama model
 - Ollama connection check
 - Faster-Whisper transcription helper for audio files
+- Single-utterance microphone capture with silence timeout
+- CLI voice modes (`/voice`, `/voice-te`, `/voice-en`) feeding the safe command router
 - Environment-based settings
 - Python package, Windows setup/launch scripts, and basic tests
 
 ## Planned / in progress
 
-- Telugu and English microphone interaction
-- Continuous listening and silence detection
-- Telugu and English microphone interaction
-- Continuous listening and silence detection
+- Wake word and background always-on listening
+- Action verification, wake word, and desktop UI
 - Action verification, wake word, and desktop UI
 
-**Current limitation:** The CLI is text-based. A small, allowlisted Windows app launcher is available through slash commands; it confirms launch requests, not that a window fully opened. Speech transcription is still a helper.
+**Current limitation:** Voice is manually triggered for one utterance; there is no wake word or background always-on listening. The app launcher confirms a launch request, not that the window fully opened.
 
 ## Architecture direction
 
@@ -64,12 +64,13 @@ aria
 pytest
 ```
 
-Use slash commands for the safe app launcher, for example `/open Firefox`, `/open Notepad`, `/open Calculator`, or `/open Explorer`. Type `help` after the slash to list supported commands. Type `exit` to close the chat.
+Use `/voice` to record one utterance (auto language), `/voice-te` for Telugu, or `/voice-en` for English. You can say `open Firefox` or another allowlisted app. Typed commands: `/open Firefox`, `/open Notepad`, `/open Calculator`, `/open Explorer`. Type `/help` for help. Type `exit` to close the chat.
 
 ## Project documents
 
 - [Roadmap](docs/ROADMAP.md)
 - [Computer control prototype](docs/COMPUTER_CONTROL.md)
+- [Voice input prototype](docs/VOICE_INPUT.md)
 - [Development guide](docs/DEVELOPMENT.md)
 - [Contributing](CONTRIBUTING.md)
 
