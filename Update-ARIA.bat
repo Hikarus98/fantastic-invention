@@ -3,11 +3,11 @@ setlocal
 title ARIA - Update and Launch
 
 echo ========================================
-echo        ARIA UPDATE AND LAUNCH
+echo      ARIA (formerly AREON) UPDATE
 echo ========================================
 echo.
 
-REM Move to the folder containing this batch file
+echo This updater now uses the ARIA name; old AREON data is not deleted.\necho.\nREM Move to the folder containing this batch file
 cd /d "%~dp0"
 
 REM Verify this is a Git checkout
