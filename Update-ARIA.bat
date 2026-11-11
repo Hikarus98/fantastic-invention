@@ -1,77 +1,89 @@
 @echo off
 setlocal
-title ARIA - Update and Launch
-
-echo ========================================
-echo      ARIA (formerly AREON) UPDATE
-echo ========================================
-echo.
-echo This updater uses the ARIA name; old AREON data is not deleted.
-echo.
-
-REM Move to the folder containing this batch file
+title ARIA - Update, Diagnose and Launch
 cd /d "%~dp0"
 
-REM Verify this is a Git checkout
+echo ============================================
+echo       ARIA UPDATE + DIAGNOSTICS
+echo ============================================
+echo This updates ARIA code only. It does not automatically
+echo add new Windows actions or repair the command router.
+echo Existing AREON data is not deleted.
+echo.
+
 if not exist ".git" (
-    echo ERROR: Git repository not found in "%CD%".
-    echo Clone ARIA first from:
-    echo https://github.com/Hikarus98/fantastic-invention
-    pause
-    exit /b 1
+  echo ERROR: Git repository not found in "%CD%".
+  echo Clone https://github.com/Hikarus98/fantastic-invention first.
+  pause
+  exit /b 1
 )
 
-REM Preserve local changes; refuse to overwrite them
-git status --short
+where git >nul 2>&1
 if errorlevel 1 (
-    echo ERROR: Git status failed.
-    pause
-    exit /b 1
+  echo ERROR: Git is not installed or not on PATH.
+  pause
+  exit /b 1
 )
-for /f "delims=" %%A in ('git status --porcelain') do (
-    echo.
-    echo ERROR: Local changes detected. Back them up or commit/stash them before updating.
-    pause
-    exit /b 1
+
+echo [1/4] Checking local changes...
+git status --porcelain > "%TEMP%\aria_git_status.txt"
+if errorlevel 1 goto :git_error
+for %%F in ("%TEMP%\aria_git_status.txt") do if %%~zF GTR 0 (
+  echo ERROR: Local files have changes. Save/commit them before updating.
+  type "%TEMP%\aria_git_status.txt"
+  del "%TEMP%\aria_git_status.txt"
+  pause
+  exit /b 1
 )
+del "%TEMP%\aria_git_status.txt" >nul 2>&1
 
 echo.
-echo [1/3] Pulling latest ARIA code...
+echo [2/4] Downloading latest ARIA code...
 git pull --ff-only origin main
-if errorlevel 1 (
-    echo ERROR: Git update failed. Check network, branch, or local repository state.
-    pause
-    exit /b 1
-)
+if errorlevel 1 goto :git_error
 
 echo.
-echo [2/3] Updating Python package/dependencies...
+echo [3/4] Installing/updating ARIA...
 if exist ".venv\Scripts\python.exe" (
-    ".venv\Scripts\python.exe" -m pip install --upgrade pip
-    if errorlevel 1 goto :pip_error
-    ".venv\Scripts\python.exe" -m pip install -e .
-    if errorlevel 1 goto :pip_error
-    set "ARIA_CMD=.venv\Scripts\aria.exe"
+  set "PY=.venv\Scripts\python.exe"
 ) else (
-    python -m pip install --upgrade pip
-    if errorlevel 1 goto :pip_error
-    python -m pip install -e .
-    if errorlevel 1 goto :pip_error
-    set "ARIA_CMD=aria"
+  set "PY=python"
+)
+%PY% -m pip install --upgrade pip
+if errorlevel 1 goto :pip_error
+%PY% -m pip install -e .
+if errorlevel 1 goto :pip_error
+
+echo.
+echo [4/4] Running ARIA diagnostics...
+%PY% -m aria.main --check
+if errorlevel 1 (
+  echo.
+  echo CHECK FAILED. Review the errors above; ARIA will not be launched.
+  pause
+  exit /b 1
 )
 
 echo.
-echo [3/3] Starting ARIA...
-%ARIA_CMD%
-if errorlevel 1 (
-    echo.
-    echo ARIA exited with an error. See the output above.
-    pause
-    exit /b 1
+echo Diagnostics passed. Launching ARIA...
+if exist ".venv\Scripts\aria.exe" (
+  ".venv\Scripts\aria.exe"
+) else (
+  %PY% -m aria.main
 )
-exit /b 0
+set "APP_EXIT=%ERRORLEVEL%"
+echo.
+echo ARIA process exited with code %APP_EXIT%.
+echo Note: updater cannot fix missing/unimplemented PC actions by itself.
+pause
+exit /b %APP_EXIT%
+
+:git_error
+echo ERROR: Git update failed. Check internet, branch, or repository state.
+pause
+exit /b 1
 
 :pip_error
-echo ERROR: Dependency installation failed.
+echo ERROR: Python dependency installation failed.
 pause
 exit /b 1
