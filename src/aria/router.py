@@ -12,15 +12,15 @@ class CommandResult:
     message: str
 
 _OPEN_PATTERNS=(
- re.compile(r"^(?:open|launch|start)\\s+(.+?)$",re.I),
- re.compile(r"^open\\s+(?:the\\s+)?(.+?)\\s+app$",re.I),
+ re.compile(r"^(?:open|launch|start)\s+(.+?)$",re.I),
+ re.compile(r"^open\s+(?:the\s+)?(.+?)\s+app$",re.I),
 )
 _SEARCH_PATTERNS=(
- re.compile(r"^(?:search(?:\\s+the\\s+web)?\\s+for|google|search)\\s+(.+)$",re.I),
- re.compile(r"^(?:find|look\\s+up|look\\s+for)\\s+(.+)$",re.I),
+ re.compile(r"^(?:search(?:\s+the\s+web)?\s+for|google|search)\s+(.+)$",re.I),
+ re.compile(r"^(?:find|look\s+up|look\s+for)\s+(.+)$",re.I),
 )
-_URL_PATTERN=re.compile(r"^(?:go\\s+to|navigate\\s+to|visit)\\s+(.+)$",re.I)
-_NEW_TAB_PATTERN=re.compile(r"^(?:open\\s+)?(?:a\\s+)?new\\s+tab$",re.I)
+_URL_PATTERN=re.compile(r"^(?:go\s+to|navigate\s+to|visit)\s+(.+)$",re.I)
+_NEW_TAB_PATTERN=re.compile(r"^(?:open\s+)?(?:a\s+)?new\s+tab$",re.I)
 
 def route_command(command: str) -> CommandResult:
  cleaned=command.strip().rstrip(".!?")
