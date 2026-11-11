@@ -4,7 +4,6 @@ from .config import Config
 from .llm import OllamaClient
 from .router import route_command
 
-
 def main() -> None:
     parser = argparse.ArgumentParser(description="ARIA local AI assistant")
     parser.add_argument("--check", action="store_true", help="check Ollama connection")
@@ -16,10 +15,11 @@ def main() -> None:
         return
 
     print("ARIA | Local AI Assistant (Ctrl+C to exit)")
-    print("Commands: /open Firefox | /voice | /voice-te | /voice-en | /help")
+    print("Try natural commands: open Firefox, find ChatGPT, visit example.com")
+    print("Slash commands: /voice | /voice-te | /voice-en | /help")
     while True:
         try:
-            prompt = input("\nYou: ").strip()
+            prompt = input("\\nYou: ").strip()
             if prompt.lower() in {"exit", "quit", "bye"}:
                 break
             if not prompt:
@@ -38,18 +38,23 @@ def main() -> None:
                         print("Voice error:", exc)
                     continue
                 result = route_command(prompt[1:])
-                print("\nARIA:", result.message)
+                print("\\nARIA:", result.message)
+                continue
+
+            # Deterministic commands get first refusal; unknown text remains a chat prompt.
+            action = route_command(prompt)
+            if action.handled:
+                print("\\nARIA:", action.message)
                 continue
             if not client.health():
                 print("Ollama is not reachable. Start Ollama and run aria --check.")
                 continue
-            print("\nARIA:", client.chat(prompt))
+            print("\\nARIA:", client.chat(prompt))
         except (KeyboardInterrupt, EOFError):
-            print("\nGoodbye!")
+            print("\\nGoodbye!")
             break
         except Exception as exc:
             print(f"ARIA error: {exc}")
-
 
 if __name__ == "__main__":
     main()
