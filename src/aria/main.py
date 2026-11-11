@@ -26,7 +26,7 @@ def main() -> None:
     print("Slash commands: /voice | /voice-te | /voice-en | /help")
     while True:
         try:
-            prompt = input("\\nYou: ").strip()
+            prompt = input("\nYou: ").strip()
             if prompt.lower() in {"exit", "quit", "bye"}:
                 break
             if not prompt:
@@ -49,12 +49,12 @@ def main() -> None:
                         print("Voice error:", exc)
                     continue
                 result = route_command(prompt[1:])
-                print("\\nARIA:", result.message)
+                print("\nARIA:", result.message)
                 continue
 
             action = route_command(prompt)
             if action.handled:
-                print("\\nARIA:", action.message)
+                print("\nARIA:", action.message)
                 if memory:
                     memory.add_message("user", prompt)
                     memory.add_message("assistant", action.message)
@@ -64,12 +64,12 @@ def main() -> None:
                 continue
             history = memory.recent_messages(args.history) if memory and args.history > 0 else []
             reply = client.chat(prompt, history=history)
-            print("\\nARIA:", reply)
+            print("\nARIA:", reply)
             if memory:
                 memory.add_message("user", prompt)
                 memory.add_message("assistant", reply)
         except (KeyboardInterrupt, EOFError):
-            print("\\nGoodbye!")
+            print("\nGoodbye!")
             break
         except Exception as exc:
             print(f"ARIA error: {exc}")
