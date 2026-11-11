@@ -2,17 +2,17 @@
 from __future__ import annotations
 
 import requests
-from .config import Config
+from .config import Config\nfrom .settings import SettingsStore
 
 
 class OllamaClient:
     def __init__(self, config: Config | None = None, timeout: int = 120):
         self.config = config or Config()
-        self.timeout = timeout
+        self.timeout = timeout\n        self.settings = SettingsStore().load()
 
     def chat(self, prompt: str, system: str = "You are ARIA, a helpful local AI assistant.",
              history: list[dict[str, str]] | None = None) -> str:
-        messages = [{"role": "system", "content": system}]
+        messages = [{"role": "system", "content": self.settings.prompt() if system == "You are ARIA, a helpful local AI assistant." else system}]
         if history:
             for item in history:
                 role, content = item.get("role"), item.get("content")
