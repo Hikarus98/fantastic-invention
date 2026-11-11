@@ -1,5 +1,6 @@
 """ARIA command-line entry point."""
 import argparse
+import shlex
 
 from .config import Config
 from .llm import OllamaClient
@@ -23,7 +24,7 @@ def main() -> None:
     print("ARIA | Local AI Assistant (Ctrl+C to exit)")
     print("Conversation context:", "off" if memory is None else f"local memory ({args.history} messages)")
     print("Try natural commands: open Firefox, find ChatGPT, visit example.com")
-    print("Slash commands: /voice | /voice-te | /voice-en | /help")
+    print("Slash commands: /voice | /voice-te | /voice-en | /download URL PATH | /install PATH | /launch EXE | /check-process NAME | /help")
     while True:
         try:
             prompt = input("\nYou: ").strip()
@@ -48,8 +49,27 @@ def main() -> None:
                     except Exception as exc:
                         print("Voice error:", exc)
                     continue
-                result = route_command(prompt[1:])
-                print("\nARIA:", result.message)
+                try:
+                    parts = shlex.split(prompt[1:])
+                    verb = parts[0].lower() if parts else ""
+                    if verb == "download" and len(parts) == 3:
+                        from .windows_automation import download_file
+                        result = download_file(parts[1], parts[2])
+                    elif verb == "install" and len(parts) == 2:
+                        from .windows_automation import run_installer
+                        answer = input(f"Approve launching installer {parts[1]}? Type YES: ").strip()
+                        result = run_installer(parts[1], approved=answer == "YES")
+                    elif verb == "launch" and len(parts) == 2:
+                        from .windows_automation import launch_program
+                        result = launch_program(parts[1])
+                    elif verb == "check-process" and len(parts) == 2:
+                        from .windows_automation import process_running
+                        result = process_running(parts[1])
+                    else:
+                        result = route_command(prompt[1:])
+                    print("\\nARIA:", result.message)
+                except Exception as exc:
+                    print("\\nARIA action error:", exc)
                 continue
 
             action = route_command(prompt)
