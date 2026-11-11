@@ -10,6 +10,7 @@
 - Single-utterance microphone capture with silence timeout
 - CLI voice modes (`/voice`, `/voice-te`, `/voice-en`) feeding the safe command router
 - Safe named action registry and basic process-presence verification
+- Conversational browser phrases (`find`, `look up`, `search`, `visit`, `open a new tab`) routed to explicit safe helpers
 - Explicit browser search and URL opening commands
 - Environment-based settings
 - Python package, Windows setup/launch scripts, and basic tests
@@ -66,7 +67,7 @@ aria
 pytest
 ```
 
-Use `/voice` to record one utterance (auto language), `/voice-te` for Telugu, or `/voice-en` for English. You can say `open Firefox` or another allowlisted app. Typed commands: `/open Firefox`, `/open Notepad`, `/open Calculator`, `/open Explorer`, `/search for AI news`, `/go to example.com`. Type `/help` for help. Type `exit` to close the chat.
+Use `/voice` to record one utterance (auto language), `/voice-te` for Telugu, or `/voice-en` for English. You can say `open Firefox` or another allowlisted app. Typed commands: `/open Firefox`, `/open Notepad`, `/open Calculator`, `/open Explorer`, `/search for AI news`, `/go to example.com`. Try `find ChatGPT`, `look up AI news`, `visit example.com`, or `open a new tab`. These open a search/URL/blank tab in the default browser; they don't control an existing webpage. Type `/help` for help. Type `exit` to close the chat.
 
 ## Project documents
 
