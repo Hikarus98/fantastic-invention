@@ -9,6 +9,7 @@
 - Faster-Whisper transcription helper for audio files
 - Single-utterance microphone capture with silence timeout
 - CLI voice modes (`/voice`, `/voice-te`, `/voice-en`) feeding the safe command router
+- Plain typed commands are routed automatically before chat (no `/` prefix needed for recognized commands)
 - Safe named action registry and basic process-presence verification
 - Conversational browser phrases (`find`, `look up`, `search`, `visit`, `open a new tab`) routed to explicit safe helpers
 - Explicit browser search and URL opening commands
@@ -67,7 +68,7 @@ aria
 pytest
 ```
 
-Use `/voice` to record one utterance (auto language), `/voice-te` for Telugu, or `/voice-en` for English. You can say `open Firefox` or another allowlisted app. Typed commands: `/open Firefox`, `/open Notepad`, `/open Calculator`, `/open Explorer`, `/search for AI news`, `/go to example.com`. Try `find ChatGPT`, `look up AI news`, `visit example.com`, or `open a new tab`. These open a search/URL/blank tab in the default browser; they don't control an existing webpage. Type `/help` for help. Type `exit` to close the chat.
+Use `/voice` to record one utterance (auto language), `/voice-te` for Telugu, or `/voice-en` for English. You can say `open Firefox` or another allowlisted app. Typed commands: `/open Firefox`, `/open Notepad`, `/open Calculator`, `/open Explorer`, `/search for AI news`, `/go to example.com`. Try `find ChatGPT`, `look up AI news`, `visit example.com`, or `open a new tab`. These open a search/URL/blank tab in the default browser; they don't control an existing webpage. You can enter `open Firefox`, `find ChatGPT`, or `visit example.com` directly without `/`; recognized safe commands are handled, and other text goes to Ollama chat. Type `/help` for help. Type `exit` to close the chat.
 
 ## Project documents
 
